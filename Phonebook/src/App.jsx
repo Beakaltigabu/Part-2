@@ -80,7 +80,7 @@ const handleSubmit=(e)=>{
   .catch(error=>{
     let errorMessage="Something went wrong"
 
-    if(error.response && error.response.data&&error.reponse.data.error){
+    if(error.response && error.response.data&&error.reponse.data){
       errorMessage=`validation Error: ${error.response.data.error}`
     }else if(error.message){
       errorMessage=`Error: ${error.message}`
@@ -103,7 +103,7 @@ const handleDelete=(id,name)=>{
     .remove(id)
     .then(()=>{
       setPersons(persons.filter(person=>person.id!==id))
-       setNotification({message:`Added ${returnedPerson.name}`, type:'success'})
+       setNotification({message:`Deleted ${name}`, type:'success'})
         setTimeout(()=>setNotification(null),3000)
     })
     .catch(error=>{
