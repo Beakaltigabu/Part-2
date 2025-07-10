@@ -78,8 +78,17 @@ const handleSubmit=(e)=>{
         setTimeout(()=>setNotification(null),3000)
   })
   .catch(error=>{
+    let errorMessage="Something went wrong"
+
+    if(error.response && error.response.data&&error.reponse.data.error){
+      errorMessage=`validation Error: ${error.response.data.error}`
+    }else if(error.message){
+      errorMessage=`Error: ${error.message}`
+    }
+
+
     setNotification({
-      message:`Error: ${error.response.data.error}`,
+      message:errorMessage,
       type:'error'
     })
     setTimeout(()=>setNotification(null),5000)
@@ -100,7 +109,7 @@ const handleDelete=(id,name)=>{
     .catch(error=>{
       alert(`The person '${name}' was already deleted from server`)
       setPersons(persons.filter(person=>person.id !==id))
-      
+
 
     })
   }
